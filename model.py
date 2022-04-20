@@ -28,8 +28,9 @@ class User(db.Model):
                         primary_key=True)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(20), nullable=False)
-    
 
+    # ratings = a list of Rating objects
+    
     def __repr__(self):
         return f'<User user_id={self.user_id} email={self.email}>'
 
@@ -45,6 +46,8 @@ class Movie(db.Model):
     overview = db.Column(db.Text, nullable=False)
     release_date = db.Column(db.DateTime, nullable=False)
     poster_path = db.Column(db.String, nullable=True)
+
+    # ratings = a list of Rating objects
     
     def __repr__(self):
         return f"""
@@ -63,6 +66,8 @@ class Rating(db.Model):
     score = db.Column(db.Integer)
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+    movie = db.relationship('Movie', backref='ratings')
+    user = db.relationship("User", backref="ratings")
     
     def __repr__(self):
         return f'<Rating: rating_id={self.rating_id} score={self.score} movie_id={self.movie_id} user_id={self.user_id}>'
