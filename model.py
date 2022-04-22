@@ -46,7 +46,8 @@ class Movie(db.Model):
     overview = db.Column(db.Text, nullable=False)
     release_date = db.Column(db.DateTime, nullable=False)
     poster_path = db.Column(db.String, nullable=True)
-
+    
+    # example: datetime(2022, 12, 22, 0, 0)
     # ratings = a list of Rating objects
     
     def __repr__(self):
